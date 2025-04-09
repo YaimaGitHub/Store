@@ -55,7 +55,7 @@ const products = [
     discount: 15,
     rating: 4.0,
     reviewCount: 42,
-    images: ["/Ropa_calzado_accesorios/Zapato de mujer (Fashion).jpg?height=600&width=600", "/Ropa_calzado_accesorios/Zapato de mujer (Fashion).jpg?height=600&width=600&text=Back"],
+    images: ["/Ropa_calzado_accesorios/zapatos/Zapato de mujer (Fashion).jpg?height=600&width=600", "/Ropa_calzado_accesorios/zapatos/Zapato de mujer (Fashion).jpg?height=600&width=600&text=Back"],
   },
   {
     id: "4",
