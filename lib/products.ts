@@ -47,8 +47,8 @@ const products = [
     name: "Zapato de mujer (Fashion)",
     description:
       "Zapatos de mujer muy comodos. Talla: # 42",
-    price: 11.11111111111111,
-    originalPrice: 9.722222222222222,
+    price: 9.722222222222222,
+    originalPrice: 11.11111111111111,
     category: "clothing",
     inStock: true,
     isNew: false,
