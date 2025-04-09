@@ -60,7 +60,7 @@ export default function ContactPageClient() {
                 <Mail className="h-5 w-5 mr-3 text-primary mt-0.5" />
                 <div>
                   <p className="font-medium">{t("contact.email")}</p>
-                  <a href="mailto:info@shophub.com" className="text-gray-600 dark:text-gray-400 hover:underline">
+                  <a href="mailto:casimiroes@gmail.com" className="text-gray-600 dark:text-gray-400 hover:underline">
                     casimiroes@gmail.com
                   </a>
                 </div>

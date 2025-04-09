@@ -1,6 +1,6 @@
 {
   "common": {
-    "shopHub": "TiendaHub",
+    "shopHub": "ShopHub",
     "search": "Buscar productos...",
     "cart": "Carrito",
     "checkout": "Pagar",
