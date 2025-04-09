@@ -64,7 +64,7 @@ export default function WhatsAppCheckout() {
   const { formatPrice, language, currency } = useLocale()
   const { t } = useTranslations()
   // Replace the useState for phoneNumber with a fixed store owner number
-  const [phoneNumber] = useState("1234567890") // Replace with the store owner's actual WhatsApp number
+  const [phoneNumber] = useState("5354690878") // Replace with the store owner's actual WhatsApp number
   const [isOpen, setIsOpen] = useState(false)
   const [orderNumber, setOrderNumber] = useState("")
   const [customerInfo, setCustomerInfo] = useState({
@@ -262,7 +262,7 @@ export default function WhatsAppCheckout() {
                 name="phoneNumber"
                 value={customerInfo.phoneNumber}
                 onChange={handleInputChange}
-                placeholder="+1 234 567 8900"
+                placeholder="+53 54 69 0878"
               />
             </div>
 
