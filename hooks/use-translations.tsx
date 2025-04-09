@@ -278,7 +278,7 @@ const translations = {
   },
   es: {
     common: {
-      shopHub: "TiendaHub",
+      shopHub: "ShopHub",
       search: "Buscar productos...",
       cart: "Carrito",
       checkout: "Pagar",
@@ -551,7 +551,7 @@ const translations = {
   },
   fr: {
     common: {
-      shopHub: "BoutiqueHub",
+      shopHub: "ShopHub",
       search: "Rechercher des produits...",
       cart: "Panier",
       checkout: "Commander",

@@ -48,12 +48,12 @@ const baseCurrencies: Currency[] = [
   {
     code: "CUP_INFORMAL",
     symbol: "₱",
-    name: "Cuban Peso (Informal Market)",
-    rate: 365,
+    name: "Cuban Peso (Mercado informal)",
+    rate: 360,
     isInformal: true,
     useInformalRate: true,
   },
-  { code: "MLC", symbol: "MLC$", name: "Cuban Freely Convertible Currency", rate: 1 },
+  { code: "MLC", symbol: "MLC$", name: "Moneda Cubana Libremente Convertible", rate: 1 },
 ]
 
 const LocaleContext = createContext<LocaleContextType | undefined>(undefined)

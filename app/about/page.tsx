@@ -75,37 +75,37 @@ export default function AboutPage() {
                   <td className="py-2 font-medium">
                     <TranslatedText section="about" textKey="monday" />
                   </td>
-                  <td className="py-2">9:00 AM - 6:00 PM</td>
+                  <td className="py-2">9:00 AM - 5:00 PM</td>
                 </tr>
                 <tr>
                   <td className="py-2 font-medium">
                     <TranslatedText section="about" textKey="tuesday" />
                   </td>
-                  <td className="py-2">9:00 AM - 6:00 PM</td>
+                  <td className="py-2">9:00 AM - 5:00 PM</td>
                 </tr>
                 <tr>
                   <td className="py-2 font-medium">
                     <TranslatedText section="about" textKey="wednesday" />
                   </td>
-                  <td className="py-2">9:00 AM - 6:00 PM</td>
+                  <td className="py-2">9:00 AM - 5:00 PM</td>
                 </tr>
                 <tr>
                   <td className="py-2 font-medium">
                     <TranslatedText section="about" textKey="thursday" />
                   </td>
-                  <td className="py-2">9:00 AM - 6:00 PM</td>
+                  <td className="py-2">9:00 AM - 5:00 PM</td>
                 </tr>
                 <tr>
                   <td className="py-2 font-medium">
                     <TranslatedText section="about" textKey="friday" />
                   </td>
-                  <td className="py-2">9:00 AM - 7:00 PM</td>
+                  <td className="py-2">9:00 AM - 5:00 PM</td>
                 </tr>
                 <tr>
                   <td className="py-2 font-medium">
                     <TranslatedText section="about" textKey="saturday" />
                   </td>
-                  <td className="py-2">10:00 AM - 5:00 PM</td>
+                  <td className="py-2">9:00 AM - 5:00 PM</td>
                 </tr>
                 <tr>
                   <td className="py-2 font-medium">
