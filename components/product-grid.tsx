@@ -30,7 +30,7 @@ export default function ProductGrid({ products }) {
           <Link href={`/products/${product.id}`} className="block relative">
             <div className="aspect-square overflow-hidden bg-gray-100">
               <img
-                src={product.image || "/untitled-7.png?height=300&width=300"}
+                src={product.image || "/Ropa_calzado_accesorios/zapatos/Zapato de mujer (Fashion).jpg?height=300&width=300"}
                 alt={product.name}
                 className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
               />

@@ -80,7 +80,7 @@ export default function ProductCarousel({ products, title }) {
                 <Link href={`/products/${product.id}`} className="block">
                   <div className="aspect-square overflow-hidden bg-gray-100">
                     <img
-                      src={product.image || "/Ropa_calzado_accesorios/zapatos/Zapato de mujer (Fashion).jpg?height=300&width=300"}
+                      src={product.image || "/untitled-7.png?height=300&width=300"}
                       alt={product.name}
                       className="object-cover w-full h-full"
                     />
