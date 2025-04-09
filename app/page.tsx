@@ -43,7 +43,7 @@ export default async function Home() {
             <div className="flex justify-center">
               <div className="relative w-full max-w-[500px] aspect-square overflow-hidden rounded-xl">
                 <img
-                  src="/untitled-7.png?height=600&width=600"
+                  src="/placeholder.svg?height=600&width=600"
                   alt="Featured products showcase"
                   className="object-cover w-full h-full"
                 />

@@ -16,9 +16,9 @@ const products = [
     rating: 4.5,
     reviewCount: 128,
     images: [
-      "/placeholder.svg?height=600&width=600",
-      "/placeholder.svg?height=600&width=600&text=Side",
-      "/placeholder.svg?height=600&width=600&text=Back",
+      "/untitled-7.png?height=600&width=600",
+      "/untitled-7.png?height=600&width=600&text=Side",
+      "/untitled-7.png?height=600&width=600&text=Back",
     ],
     features: [
       "Active Noise Cancellation",
