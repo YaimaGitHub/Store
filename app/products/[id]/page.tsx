@@ -46,7 +46,7 @@ export default function ProductPage({ params }) {
   }, [params.id])
 
   if (loading) {
-    return <div className="container px-4 py-8 mx-auto">Loading...</div>
+    return <div className="container px-4 py-8 mx-auto">Cargando...</div>
   }
 
   if (!product) {

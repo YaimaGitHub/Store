@@ -44,18 +44,18 @@ const products = [
   },
   {
     id: "3",
-    name: "Organic Cotton T-Shirt",
+    name: "Zapato de mujer (Fashion)",
     description:
-      "Comfortable and eco-friendly t-shirt made from 100% organic cotton. Available in multiple colors and sizes.",
-    price: 24.99,
-    originalPrice: 29.99,
+      "Zapatos de mujer muy comodos. Talla: # 42",
+    price: 11.11111111111111,
+    originalPrice: 9.722222222222222,
     category: "clothing",
     inStock: true,
     isNew: false,
     discount: 15,
     rating: 4.0,
     reviewCount: 42,
-    images: ["/placeholder.svg?height=600&width=600", "/placeholder.svg?height=600&width=600&text=Back"],
+    images: ["/Ropa_calzado_accesorios/Zapato de mujer (Fashion).jpg?height=600&width=600", "/Ropa_calzado_accesorios/Zapato de mujer (Fashion).jpg?height=600&width=600&text=Back"],
   },
   {
     id: "4",

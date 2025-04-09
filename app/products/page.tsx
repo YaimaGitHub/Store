@@ -20,7 +20,7 @@ export default async function ProductsPage({ searchParams }) {
 
   return (
     <div className="container px-4 py-8 mx-auto">
-      <h1 className="text-3xl font-bold mb-8">All Products</h1>
+      <h1 className="text-3xl font-bold mb-8">Todos los Productos</h1>
 
       <div className="flex flex-col md:flex-row gap-8">
         <div className="w-full md:w-1/4">
