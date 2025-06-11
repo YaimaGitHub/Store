@@ -1,48 +1,27 @@
 "use client"
 
-import { Button, Card, CardActions, CardContent, Fade, Rating, Skeleton, useMediaQuery } from "@mui/material"
-import { Star } from "@mui/icons-material"
-import { useContext, useState } from "react"
-import { groceryContext } from "../../Layout/Layout"
-import { handleSessionStorage } from "../../../utils/utils"
-import SuccessAlert from "../../SuccessAlert/SuccessAlert"
+import { Card, CardActions, CardContent, Fade, Rating, Skeleton, useMediaQuery, Button } from "@mui/material"
+import { Star, Visibility } from "@mui/icons-material"
+import { useState } from "react"
+import ProductDetail from "../../ProductDetail/ProductDetail"
 import { useLanguage } from "../../../contexts/LanguageContext"
 
 const ProductCard = ({ product }) => {
   const { img, name, price, reviews, reviewCount, quantity, unit } = product
   const { t } = useLanguage()
+  const [openDetail, setOpenDetail] = useState(false)
 
   // Media Query
   const isMediumScreen = useMediaQuery("(min-width: 768px) and (max-width: 1024px)")
   const isSmallScreen = useMediaQuery("(max-width:768px)")
 
-  const [openAlert, setOpenAlert] = useState(false)
-  const { cartItemsState } = useContext(groceryContext)
-  const [cartItems, setCartItems] = cartItemsState
-
-  //Handle Add To Cart
-  const handleAddToCartBtn = () => {
-    let targetedProduct = product
-    let latestCartItems = cartItems
-
-    const isTargetedProductAlreadyExist = cartItems.find((item) => item.id === product.id)
-    if (isTargetedProductAlreadyExist) {
-      targetedProduct = {
-        ...isTargetedProductAlreadyExist,
-        quantity: isTargetedProductAlreadyExist.quantity + 1,
-        total: ((isTargetedProductAlreadyExist.quantity + 1) * isTargetedProductAlreadyExist.price).toFixed(2),
-      }
-      latestCartItems = cartItems.filter((item) => item.id !== targetedProduct.id)
-    }
-    setCartItems([targetedProduct, ...latestCartItems])
-    handleSessionStorage("set", "cartItems", [targetedProduct, ...latestCartItems])
-
-    setOpenAlert(!openAlert)
+  const handleViewDetails = () => {
+    setOpenDetail(true)
   }
 
   return (
     <div>
-      <SuccessAlert state={[openAlert, setOpenAlert]} massage={t("cart.itemAdded")} />
+      <ProductDetail product={product} open={openDetail} onClose={() => setOpenDetail(false)} />
 
       <Fade in={true}>
         <Card
@@ -51,10 +30,16 @@ const ProductCard = ({ product }) => {
             mx: "auto",
             boxShadow: "0 2px 4px -1px rgb(0 0 0 / 0.1)",
             backgroundColor: "white",
+            cursor: "pointer",
+            transition: "transform 0.2s ease-in-out",
+            "&:hover": {
+              transform: "translateY(-2px)",
+              boxShadow: "0 4px 8px -1px rgb(0 0 0 / 0.2)",
+            },
           }}
+          onClick={handleViewDetails}
         >
           {/* Product_img */}
-          {/* Note: Transparent or solid white background img required */}
           <div className="md:h-36 py-3 w-full bg-white flex items-center justify-center">
             <img className="md:max-h-28 max-h-24" loading="lazy" src={img || "/placeholder.svg"} alt={name} />
           </div>
@@ -96,7 +81,7 @@ const ProductCard = ({ product }) => {
                 </div>
               </div>
             </CardContent>
-            <CardActions>
+            <CardActions onClick={(e) => e.stopPropagation()}>
               <Button
                 sx={{
                   textTransform: "capitalize",
@@ -104,12 +89,13 @@ const ProductCard = ({ product }) => {
                   ":hover": { bgcolor: "#2e7d32", color: "white", transition: "all 235ms ease-in-out" },
                 }}
                 fullWidth
-                onClick={handleAddToCartBtn}
+                onClick={handleViewDetails}
                 size={isMediumScreen ? "small" : "medium"}
                 variant="outlined"
                 color="success"
+                startIcon={<Visibility />}
               >
-                {t("products.addToCart")}
+                {t("products.viewDetails")}
               </Button>
             </CardActions>
           </div>
@@ -119,7 +105,7 @@ const ProductCard = ({ product }) => {
   )
 }
 
-// ProductCard Skeleton
+// ProductCard Skeleton remains the same
 export const ProductCardSkeleton = () => (
   <div>
     <Card
@@ -154,7 +140,7 @@ export const ProductCardSkeleton = () => (
           </div>
         </CardContent>
 
-        {/* Add To Cart Btn */}
+        {/* View Details Btn */}
         <CardActions sx={{ pt: 0 }}>
           <Skeleton variant="rounded" height={"1.9rem"} width={"100%"} />
         </CardActions>
@@ -162,4 +148,5 @@ export const ProductCardSkeleton = () => (
     </Card>
   </div>
 )
+
 export default ProductCard

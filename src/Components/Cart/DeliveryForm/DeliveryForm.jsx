@@ -1,116 +1,117 @@
 "use client"
 
-import { Button, Fade, TextField } from "@mui/material"
-import { useForm } from "react-hook-form"
+import { Fade } from "@mui/material"
+import { useContext, useState, useEffect } from "react"
 import { groceryContext } from "../../Layout/Layout"
-import { useContext, useState } from "react"
 import GoBackButton from "../GoBackButton/GoBackButton"
 import { handleSessionStorage } from "../../../utils/utils"
-import PopUpDialog from "../../PopUpDialog/PopUpDialog"
 import { useNavigate } from "react-router-dom"
 import { useLanguage } from "../../../contexts/LanguageContext"
+import DeliveryTypeSelector from "./DeliveryTypeSelector"
+import DeliveryDetailsForm from "./DeliveryDetailsForm"
+import WhatsAppSender from "./WhatsAppSender"
 
-const DeliveryForm = () => {
+const DeliveryForm = ({ onDeliveryDataChange }) => {
   const { cartItemsState } = useContext(groceryContext)
   const [cartItems, setCartItems] = cartItemsState
-  const [openDialog, setOpenDialog] = useState(false)
+  const [showWhatsApp, setShowWhatsApp] = useState(false)
+  const [deliveryType, setDeliveryType] = useState("")
+  const [deliveryZone, setDeliveryZone] = useState(null)
+  const [step, setStep] = useState(1) // 1: delivery type, 2: details form, 3: whatsapp
+  const [orderData, setOrderData] = useState(null)
   const { t } = useLanguage()
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm()
 
   const navigate = useNavigate()
 
-  // Handle PlaceOrder
-  const onSubmit = (data) => {
-    setOpenDialog(!openDialog)
-    // Setting DeliveryDetails in Storage
-    handleSessionStorage("set", "deliveryDetails", data)
+  // Update parent component when delivery data changes
+  useEffect(() => {
+    onDeliveryDataChange({
+      deliveryType,
+      deliveryZone,
+    })
+  }, [deliveryType, deliveryZone, onDeliveryDataChange])
+
+  // Handle delivery type selection
+  const handleDeliveryTypeSelect = (type) => {
+    setDeliveryType(type)
+    setStep(2)
   }
-  // Handle Dialog
-  const handleOK = () => {
+
+  // Handle zone selection
+  const handleZoneSelect = (zone) => {
+    setDeliveryZone(zone)
+  }
+
+  // Handle form submission
+  const handleFormSubmit = (data) => {
+    const completeOrderData = {
+      ...data,
+      deliveryType,
+      deliveryZone,
+      cartItems,
+      orderNumber: generateOrderNumber(),
+      orderDate: new Date().toLocaleString(),
+    }
+
+    setOrderData(completeOrderData)
+    setShowWhatsApp(true)
+    setStep(3)
+
+    // Setting DeliveryDetails in Storage
+    handleSessionStorage("set", "deliveryDetails", completeOrderData)
+  }
+
+  // Generate unique order number
+  const generateOrderNumber = () => {
+    const timestamp = Date.now()
+    const random = Math.floor(Math.random() * 1000)
+    return `ORD-${timestamp}-${random}`
+  }
+
+  // Handle successful WhatsApp send
+  const handleWhatsAppSuccess = () => {
     // Reset the Cart_items
     handleSessionStorage("remove", "cartItems")
     setCartItems([])
-    setOpenDialog(!openDialog)
     navigate("/")
   }
 
+  const handleBackToDeliveryType = () => {
+    setStep(1)
+    setDeliveryType("")
+    setDeliveryZone(null)
+  }
+
+  const handleBackToForm = () => {
+    setStep(2)
+    setShowWhatsApp(false)
+  }
+
   return (
-    <>
-      <PopUpDialog open={openDialog} message={t("checkout.orderSuccess")} handleOk={handleOK} placeOrder={true} />
-      <div className="md:mx-0 mx-auto space-y-4 max-w-[37rem]">
-        {/* Go back Btn */}
-        <GoBackButton />
-        <div className="space-y-9 lg:space-y-10 ">
-          {/* Title */}
-          <h1 className="lg:text-2xl text-xl font-semibold text-gray-600">{t("checkout.title")}</h1>
+    <div className="md:mx-0 mx-auto space-y-4 max-w-[37rem]">
+      {/* Go back Btn */}
+      {step > 1 && <GoBackButton />}
 
-          {/* Delivery Form */}
-          <Fade in={true}>
-            <form action="post" className="lg:space-y-8  space-y-7" onSubmit={handleSubmit(onSubmit)}>
-              {/* Full */}
-              <TextField
-                {...register("full_name", {
-                  required: t("checkout.nameRequired"),
-                })}
-                defaultValue={"John Doe"}
-                label={t("checkout.fullName")}
-                size="small"
-                error={errors.full_name ? true : false}
-                helperText={errors.full_name ? errors.full_name.message : ""}
-                fullWidth
-                color="success"
-                variant="outlined"
+      <div className="space-y-9 lg:space-y-10">
+        <Fade in={true}>
+          <div>
+            {step === 1 ? (
+              <DeliveryTypeSelector onSelect={handleDeliveryTypeSelect} />
+            ) : step === 2 ? (
+              <DeliveryDetailsForm
+                deliveryType={deliveryType}
+                onSubmit={handleFormSubmit}
+                onBack={handleBackToDeliveryType}
+                onZoneSelect={handleZoneSelect}
+                selectedZone={deliveryZone}
               />
-
-              {/* Email */}
-              <TextField
-                {...register("email", {
-                  required: t("checkout.emailRequired"),
-                  pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: t("checkout.invalidEmail"),
-                  },
-                })}
-                defaultValue={"john@gmail.com"}
-                label={t("checkout.email")}
-                size="small"
-                error={errors.email ? true : false}
-                helperText={errors.email ? errors.email.message : ""}
-                fullWidth
-                color="success"
-                variant="outlined"
-              />
-
-              {/* Address */}
-              <TextField
-                {...register("address", {
-                  required: t("checkout.addressRequired"),
-                })}
-                defaultValue={"456 Street, fake town, New York"}
-                label={t("checkout.address")}
-                size="small"
-                error={errors.address ? true : false}
-                helperText={errors.address ? errors.address.message : ""}
-                fullWidth
-                placeholder="street, city, state"
-                color="success"
-                variant="outlined"
-              />
-
-              {/* Submit Button */}
-              <Button type="submit" fullWidth variant="contained" sx={{ textTransform: "capitalize" }} color="success">
-                {t("checkout.placeOrder")}
-              </Button>
-            </form>
-          </Fade>
-        </div>
+            ) : (
+              <WhatsAppSender orderData={orderData} onSuccess={handleWhatsAppSuccess} onBack={handleBackToForm} />
+            )}
+          </div>
+        </Fade>
       </div>
-    </>
+    </div>
   )
 }
 
