@@ -15,8 +15,8 @@
     "@lottiefiles/react-lottie-player": "^3.5.3",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.3",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-hook-form": "^7.44.3",
     "react-router-dom": "^6.11.2",
     "react-scroll": "^1.8.9",
@@ -33,6 +33,6 @@
     "eslint-plugin-react-refresh": "^0.3.4",
     "postcss": "^8.4.24",
     "tailwindcss": "^3.3.2",
-    "vite": "^6.3.5"
+    "vite": "^4.3.9"
   }
 }
