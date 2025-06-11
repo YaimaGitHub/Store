@@ -1,14 +1,19 @@
+"use client"
+
+import { useLanguage } from "../../contexts/LanguageContext"
+
 const PageNotFound = () => {
-    // Scrolling Bug Fixed
-    window.scroll({ top: 0 });
+  const { t } = useLanguage()
 
-    return (
-        <div className="flex flex-col items-center justify-center h-screen">
-            <h1 className="text-6xl font-bold mb-2">404</h1>
-            <h1 className="text-lg font-normal">Page Not Found</h1>
+  // Scrolling Bug Fixed
+  window.scroll({ top: 0 })
 
-        </div>
-    );
-};
+  return (
+    <div className="flex flex-col items-center justify-center h-screen">
+      <h1 className="text-6xl font-bold mb-2">404</h1>
+      <h1 className="text-lg font-normal">{t("common.pageNotFound")}</h1>
+    </div>
+  )
+}
 
-export default PageNotFound;
+export default PageNotFound
