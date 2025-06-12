@@ -33,14 +33,19 @@ const ProductCard = ({ product }) => {
             cursor: "pointer",
             transition: "all 0.3s ease",
             "&:hover": {
-              transform: "translateY(-4px)",
-              boxShadow: "0 8px 25px -5px rgb(0 0 0 / 0.1), 0 10px 10px -5px rgb(0 0 0 / 0.04)",
+              transform: "translateY(-8px) scale(1.02)",
+              boxShadow: "0 12px 30px -5px rgb(0 0 0 / 0.15), 0 15px 15px -5px rgb(0 0 0 / 0.08)",
             },
           }}
         >
           {/* Product_img */}
-          <div className="md:h-36 py-3 w-full bg-white flex items-center justify-center">
-            <img className="md:max-h-28 max-h-24" loading="lazy" src={img || "/placeholder.svg"} alt={name} />
+          <div className="md:h-36 py-3 w-full bg-white flex items-center justify-center overflow-hidden">
+            <img
+              className="md:max-h-28 max-h-24 transition-transform duration-300 hover:scale-110"
+              loading="lazy"
+              src={img || "/placeholder.svg"}
+              alt={name}
+            />
           </div>
           <div className="p-1.5">
             <CardContent className="md:space-y-2 space-y-1.5 ">

@@ -17,56 +17,168 @@ const ProductModal = ({ open, onClose, product }) => {
 
   const isMobile = useMediaQuery("(max-width:768px)")
 
-  // Get product description based on category and product
-  const getProductDescription = (productName) => {
-    const descriptions = {
-      // Meat descriptions
-      "Beef Meat":
-        "Carne de res premium, perfecta para asados y parrillas. Rica en proteínas y hierro, ideal para una alimentación balanceada.",
-      "Chicken Meat":
-        "Pollo fresco y tierno, ideal para cualquier preparación culinaria. Bajo en grasa y alto en proteínas de calidad.",
-      "Pork Meat":
-        "Carne de cerdo jugosa y sabrosa, perfecta para guisos y asados. Fuente excelente de vitaminas del complejo B.",
-      "Lamb Meat":
-        "Cordero tierno de la más alta calidad, ideal para ocasiones especiales. Sabor único y textura excepcional.",
+  // Get product details based on product name
+  const getProductDetails = (productName) => {
+    const productDetails = {
+      // Meat products
+      "Beef Meat": {
+        brand: "Premium Beef",
+        model: "Corte Especial",
+        color: "Rojo Natural",
+        description:
+          "Carne de res premium, perfecta para asados y parrillas. Rica en proteínas y hierro, ideal para una alimentación balanceada.",
+      },
+      "Chicken Meat": {
+        brand: "Farm Fresh",
+        model: "Pollo Entero",
+        color: "Blanco Natural",
+        description:
+          "Pollo fresco y tierno, ideal para cualquier preparación culinaria. Bajo en grasa y alto en proteínas de calidad.",
+      },
+      "Pork Meat": {
+        brand: "Quality Pork",
+        model: "Lomo Premium",
+        color: "Rosa Natural",
+        description:
+          "Carne de cerdo jugosa y sabrosa, perfecta para guisos y asados. Fuente excelente de vitaminas del complejo B.",
+      },
+      "Lamb Meat": {
+        brand: "Gourmet Lamb",
+        model: "Cordero Tierno",
+        color: "Rojo Intenso",
+        description:
+          "Cordero tierno de la más alta calidad, ideal para ocasiones especiales. Sabor único y textura excepcional.",
+      },
 
-      // Vegetables descriptions
-      Tomato:
-        "Tomates frescos y jugosos, ricos en vitaminas C y licopeno. Perfectos para ensaladas, salsas y preparaciones culinarias.",
-      Carrot:
-        "Zanahorias crujientes y dulces, ricas en vitamina A y betacarotenos. Excelentes para la salud visual y el sistema inmune.",
-      Spinach:
-        "Espinacas frescas y nutritivas, ricas en hierro, ácido fólico y vitaminas. Perfectas para ensaladas y platos cocidos.",
-      Broccoli:
-        "Brócoli fresco y crujiente, rico en vitaminas C, K y antioxidantes. Ideal para mantener una dieta saludable.",
+      // Vegetables
+      Tomato: {
+        brand: "Fresh Garden",
+        model: "Tomate Cherry",
+        color: "Rojo Brillante",
+        description:
+          "Tomates frescos y jugosos, ricos en vitaminas C y licopeno. Perfectos para ensaladas, salsas y preparaciones culinarias.",
+      },
+      Carrot: {
+        brand: "Organic Farm",
+        model: "Zanahoria Baby",
+        color: "Naranja Vibrante",
+        description:
+          "Zanahorias crujientes y dulces, ricas en vitamina A y betacarotenos. Excelentes para la salud visual y el sistema inmune.",
+      },
+      Spinach: {
+        brand: "Green Leaf",
+        model: "Espinaca Tierna",
+        color: "Verde Intenso",
+        description:
+          "Espinacas frescas y nutritivas, ricas en hierro, ácido fólico y vitaminas. Perfectas para ensaladas y platos cocidos.",
+      },
+      Broccoli: {
+        brand: "Healthy Green",
+        model: "Brócoli Premium",
+        color: "Verde Oscuro",
+        description:
+          "Brócoli fresco y crujiente, rico en vitaminas C, K y antioxidantes. Ideal para mantener una dieta saludable.",
+      },
 
-      // Fruits descriptions
-      Apple:
-        "Manzanas crujientes y dulces, ricas en fibra y vitaminas. Perfectas como snack saludable o para postres naturales.",
-      Banana:
-        "Plátanos maduros y dulces, ricos en potasio y energía natural. Ideales para deportistas y desayunos nutritivos.",
-      Orange:
-        "Naranjas jugosas y refrescantes, ricas en vitamina C y antioxidantes. Perfectas para jugos naturales y meriendas.",
-      Grapes:
-        "Uvas dulces y jugosas, ricas en antioxidantes y resveratrol. Perfectas como snack saludable o para acompañar quesos.",
+      // Fruits
+      Apple: {
+        brand: "Orchard Fresh",
+        model: "Manzana Gala",
+        color: "Rojo con Verde",
+        description:
+          "Manzanas crujientes y dulces, ricas en fibra y vitaminas. Perfectas como snack saludable o para postres naturales.",
+      },
+      Banana: {
+        brand: "Tropical Best",
+        model: "Plátano Cavendish",
+        color: "Amarillo Dorado",
+        description:
+          "Plátanos maduros y dulces, ricos en potasio y energía natural. Ideales para deportistas y desayunos nutritivos.",
+      },
+      Orange: {
+        brand: "Citrus Gold",
+        model: "Naranja Valencia",
+        color: "Naranja Brillante",
+        description:
+          "Naranjas jugosas y refrescantes, ricas en vitamina C y antioxidantes. Perfectas para jugos naturales y meriendas.",
+      },
+      Grapes: {
+        brand: "Vineyard Select",
+        model: "Uva Sin Semilla",
+        color: "Verde Esmeralda",
+        description:
+          "Uvas dulces y jugosas, ricas en antioxidantes y resveratrol. Perfectas como snack saludable o para acompañar quesos.",
+      },
 
-      // Dairy descriptions
-      Milk: "Leche fresca y cremosa, rica en calcio y proteínas de alta calidad. Esencial para el desarrollo y mantenimiento óseo.",
-      Cheese: "Queso artesanal de la más alta calidad, perfecto para cualquier ocasión. Rico en calcio y proteínas.",
-      Yogurt:
-        "Yogurt cremoso y natural, rico en probióticos y calcio. Ideal para la salud digestiva y el bienestar general.",
-      Butter: "Mantequilla cremosa y natural, perfecta para cocinar y hornear. Elaborada con los mejores ingredientes.",
+      // Dairy
+      Milk: {
+        brand: "Dairy Pure",
+        model: "Leche Entera",
+        color: "Blanco Cremoso",
+        description:
+          "Leche fresca y cremosa, rica en calcio y proteínas de alta calidad. Esencial para el desarrollo y mantenimiento óseo.",
+      },
+      Cheese: {
+        brand: "Artisan Cheese",
+        model: "Queso Cheddar",
+        color: "Amarillo Dorado",
+        description:
+          "Queso artesanal de la más alta calidad, perfecto para cualquier ocasión. Rico en calcio y proteínas.",
+      },
+      Yogurt: {
+        brand: "Probiotic Plus",
+        model: "Yogurt Natural",
+        color: "Blanco Puro",
+        description:
+          "Yogurt cremoso y natural, rico en probióticos y calcio. Ideal para la salud digestiva y el bienestar general.",
+      },
+      Butter: {
+        brand: "Creamy Best",
+        model: "Mantequilla Sin Sal",
+        color: "Amarillo Pálido",
+        description:
+          "Mantequilla cremosa y natural, perfecta para cocinar y hornear. Elaborada con los mejores ingredientes.",
+      },
 
-      // Grains descriptions
-      Rice: "Arroz de grano largo y alta calidad, perfecto como acompañamiento. Fuente de energía y carbohidratos complejos.",
-      Wheat:
-        "Trigo integral de primera calidad, rico en fibra y nutrientes. Ideal para una alimentación saludable y balanceada.",
-      Oats: "Avena natural y nutritiva, perfecta para desayunos saludables. Rica en fibra soluble y proteínas vegetales.",
-      Barley:
-        "Cebada de alta calidad, rica en fibra y minerales. Perfecta para sopas, guisos y preparaciones nutritivas.",
+      // Grains
+      Rice: {
+        brand: "Golden Grain",
+        model: "Arroz Basmati",
+        color: "Blanco Perlado",
+        description:
+          "Arroz de grano largo y alta calidad, perfecto como acompañamiento. Fuente de energía y carbohidratos complejos.",
+      },
+      Wheat: {
+        brand: "Whole Grain",
+        model: "Trigo Integral",
+        color: "Dorado Natural",
+        description:
+          "Trigo integral de primera calidad, rico en fibra y nutrientes. Ideal para una alimentación saludable y balanceada.",
+      },
+      Oats: {
+        brand: "Morning Fresh",
+        model: "Avena Integral",
+        color: "Beige Natural",
+        description:
+          "Avena natural y nutritiva, perfecta para desayunos saludables. Rica en fibra soluble y proteínas vegetales.",
+      },
+      Barley: {
+        brand: "Ancient Grain",
+        model: "Cebada Perlada",
+        color: "Marrón Claro",
+        description:
+          "Cebada de alta calidad, rica en fibra y minerales. Perfecta para sopas, guisos y preparaciones nutritivas.",
+      },
     }
 
-    return descriptions[productName] || "Producto fresco de la más alta calidad, seleccionado especialmente para ti."
+    return (
+      productDetails[productName] || {
+        brand: "Marca Premium",
+        model: "Modelo Estándar",
+        color: "Color Natural",
+        description: "Producto fresco de la más alta calidad, seleccionado especialmente para ti.",
+      }
+    )
   }
 
   const handleAddToCart = () => {
@@ -88,6 +200,8 @@ const ProductModal = ({ open, onClose, product }) => {
     setOpenAlert(true)
     onClose()
   }
+
+  const productDetails = getProductDetails(name)
 
   return (
     <>
@@ -169,10 +283,28 @@ const ProductModal = ({ open, onClose, product }) => {
                   </span>
                 </div>
 
+                {/* Product Details */}
+                <div className="space-y-3 bg-gray-50 p-4 rounded-lg">
+                  <div className="grid grid-cols-2 gap-3 text-sm">
+                    <div>
+                      <span className="font-semibold text-gray-700">Marca:</span>
+                      <p className="text-gray-600">{productDetails.brand}</p>
+                    </div>
+                    <div>
+                      <span className="font-semibold text-gray-700">Modelo:</span>
+                      <p className="text-gray-600">{productDetails.model}</p>
+                    </div>
+                    <div className="col-span-2">
+                      <span className="font-semibold text-gray-700">Color:</span>
+                      <p className="text-gray-600">{productDetails.color}</p>
+                    </div>
+                  </div>
+                </div>
+
                 {/* Description */}
                 <div className="space-y-2">
                   <h3 className="text-lg font-semibold text-gray-700">Descripción</h3>
-                  <p className="text-gray-600 leading-relaxed">{getProductDescription(name)}</p>
+                  <p className="text-gray-600 leading-relaxed">{productDetails.description}</p>
                 </div>
 
                 {/* Quality Badge */}
