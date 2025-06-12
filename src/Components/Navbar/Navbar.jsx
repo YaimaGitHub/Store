@@ -31,6 +31,41 @@ import SuccessAlert from "../SuccessAlert/SuccessAlert"
 import LanguageSelector from "../LanguageSelector/LanguageSelector"
 import { useLanguage } from "../../contexts/LanguageContext"
 
+// Agregar este componente antes del componente Navbar
+const CartBadge = () => {
+  const { cartItemsState } = React.useContext(groceryContext)
+  const [cartItems] = cartItemsState
+  const [prevCount, setPrevCount] = React.useState(0)
+  const [animate, setAnimate] = React.useState(false)
+
+  const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0)
+
+  React.useEffect(() => {
+    if (totalItems !== prevCount) {
+      setAnimate(true)
+      setPrevCount(totalItems)
+      const timer = setTimeout(() => setAnimate(false), 300)
+      return () => clearTimeout(timer)
+    }
+  }, [totalItems, prevCount])
+
+  if (totalItems === 0) return null
+
+  return (
+    <div
+      className={`absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full min-w-[20px] h-5 flex items-center justify-center font-bold transition-all duration-300 ${
+        animate ? "scale-125 bg-red-600" : "scale-100"
+      }`}
+      style={{
+        boxShadow: "0 2px 8px rgba(239, 68, 68, 0.4)",
+        animation: animate ? "pulse 0.3s ease-in-out" : "none",
+      }}
+    >
+      {totalItems > 99 ? "99+" : totalItems}
+    </div>
+  )
+}
+
 // This function will add Go_back feature on the Navbar
 function ScrollTop(props) {
   const { children, window } = props
@@ -265,10 +300,19 @@ const Navbar = (props) => {
                         <span>
                           <IconButton
                             onClick={() => navigate("/cart")}
-                            sx={{ textTransform: "capitalize" }}
+                            sx={{
+                              textTransform: "capitalize",
+                              position: "relative",
+                              transition: "all 0.3s ease",
+                              "&:hover": {
+                                transform: "scale(1.1)",
+                              },
+                            }}
                             color="warning"
                           >
                             <ShoppingCartRounded fontSize="inherit" />
+                            {/* Cart Counter Badge */}
+                            <CartBadge />
                           </IconButton>
                         </span>
                       </Tooltip>

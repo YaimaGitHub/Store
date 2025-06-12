@@ -1,62 +1,51 @@
 "use client"
 
-import { Button, Card, CardActions, CardContent, Fade, Rating, Skeleton, useMediaQuery } from "@mui/material"
+import { Card, CardContent, Fade, Rating, Skeleton, useMediaQuery, CardActions } from "@mui/material"
 import { Star } from "@mui/icons-material"
-import { useContext, useState } from "react"
-import { groceryContext } from "../../Layout/Layout"
-import { handleSessionStorage } from "../../../utils/utils"
-import SuccessAlert from "../../SuccessAlert/SuccessAlert"
+import { useState } from "react"
+import ProductModal from "../ProductModal/ProductModal"
 import { useLanguage } from "../../../contexts/LanguageContext"
 
 const ProductCard = ({ product }) => {
   const { img, name, price, reviews, reviewCount, quantity, unit } = product
   const { t } = useLanguage()
+  const [openModal, setOpenModal] = useState(false)
 
   // Media Query
-  const isMediumScreen = useMediaQuery("(min-width: 768px) and (max-width: 1024px)")
   const isSmallScreen = useMediaQuery("(max-width:768px)")
 
-  const [openAlert, setOpenAlert] = useState(false)
-  const { cartItemsState } = useContext(groceryContext)
-  const [cartItems, setCartItems] = cartItemsState
-
-  //Handle Add To Cart
-  const handleAddToCartBtn = () => {
-    let targetedProduct = product
-    let latestCartItems = cartItems
-
-    const isTargetedProductAlreadyExist = cartItems.find((item) => item.id === product.id)
-    if (isTargetedProductAlreadyExist) {
-      targetedProduct = {
-        ...isTargetedProductAlreadyExist,
-        quantity: isTargetedProductAlreadyExist.quantity + 1,
-        total: ((isTargetedProductAlreadyExist.quantity + 1) * isTargetedProductAlreadyExist.price).toFixed(2),
-      }
-      latestCartItems = cartItems.filter((item) => item.id !== targetedProduct.id)
-    }
-    setCartItems([targetedProduct, ...latestCartItems])
-    handleSessionStorage("set", "cartItems", [targetedProduct, ...latestCartItems])
-
-    setOpenAlert(!openAlert)
+  const handleProductClick = () => {
+    setOpenModal(true)
   }
 
   return (
-    <div>
-      <SuccessAlert state={[openAlert, setOpenAlert]} massage={t("cart.itemAdded")} />
+    <>
+      <ProductModal open={openModal} onClose={() => setOpenModal(false)} product={product} />
 
       <Fade in={true}>
         <Card
+          onClick={handleProductClick}
           sx={{
             maxWidth: isSmallScreen ? 275 : 295,
             mx: "auto",
             boxShadow: "0 2px 4px -1px rgb(0 0 0 / 0.1)",
             backgroundColor: "white",
+            cursor: "pointer",
+            transition: "all 0.3s ease",
+            "&:hover": {
+              transform: "translateY(-8px) scale(1.02)",
+              boxShadow: "0 12px 30px -5px rgb(0 0 0 / 0.15), 0 15px 15px -5px rgb(0 0 0 / 0.08)",
+            },
           }}
         >
           {/* Product_img */}
-          {/* Note: Transparent or solid white background img required */}
-          <div className="md:h-36 py-3 w-full bg-white flex items-center justify-center">
-            <img className="md:max-h-28 max-h-24" loading="lazy" src={img || "/placeholder.svg"} alt={name} />
+          <div className="md:h-36 py-3 w-full bg-white flex items-center justify-center overflow-hidden">
+            <img
+              className="md:max-h-28 max-h-24 transition-transform duration-300 hover:scale-110"
+              loading="lazy"
+              src={img || "/placeholder.svg"}
+              alt={name}
+            />
           </div>
           <div className="p-1.5">
             <CardContent className="md:space-y-2 space-y-1.5 ">
@@ -71,7 +60,7 @@ const ProductCard = ({ product }) => {
                     ± {quantity} {unit}
                   </span>
                   {/* Price */}
-                  <span className="block text-sm md:text-xs lg:text-sm">
+                  <span className="block text-sm md:text-xs lg:text-sm font-semibold text-green-600">
                     $ {price} {t("common.usd")}
                   </span>
                 </div>
@@ -96,30 +85,14 @@ const ProductCard = ({ product }) => {
                 </div>
               </div>
             </CardContent>
-            <CardActions>
-              <Button
-                sx={{
-                  textTransform: "capitalize",
-                  marginX: "auto",
-                  ":hover": { bgcolor: "#2e7d32", color: "white", transition: "all 235ms ease-in-out" },
-                }}
-                fullWidth
-                onClick={handleAddToCartBtn}
-                size={isMediumScreen ? "small" : "medium"}
-                variant="outlined"
-                color="success"
-              >
-                {t("products.addToCart")}
-              </Button>
-            </CardActions>
           </div>
         </Card>
       </Fade>
-    </div>
+    </>
   )
 }
 
-// ProductCard Skeleton
+// ProductCard Skeleton remains the same
 export const ProductCardSkeleton = () => (
   <div>
     <Card
@@ -162,4 +135,5 @@ export const ProductCardSkeleton = () => (
     </Card>
   </div>
 )
+
 export default ProductCard
