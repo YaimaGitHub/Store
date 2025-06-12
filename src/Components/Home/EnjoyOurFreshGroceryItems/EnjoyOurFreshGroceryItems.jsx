@@ -5,7 +5,6 @@ import { useEffect, useState } from "react"
 import ProductCard, { ProductCardSkeleton } from "../../Products/ProductCard/ProductCard"
 import { useNavigate } from "react-router-dom"
 import { useLanguage } from "../../../contexts/LanguageContext"
-import { productsData } from "../../../store/products"
 
 const EnjoyOurFreshGroceryItems = () => {
   const [items, setItems] = useState([])
@@ -19,20 +18,17 @@ const EnjoyOurFreshGroceryItems = () => {
 
   // Get Grocery Items
   useEffect(() => {
-    const getData = () => {
+    const getData = (async () => {
+      const url = `https://api.npoint.io/bc3d1b1bc1a0fde36701/${selectedCategory}`
       try {
-        const categoryData = productsData[selectedCategory]
-        if (categoryData && categoryData.items) {
-          setItems(categoryData.items.slice(0, 3))
-        }
+        const res = await fetch(url)
+        const data = await res.json()
+        setItems(data.items.slice(0, 3))
         setIsLoading(false)
       } catch (error) {
-        console.error("EnjoyFreshItems Fetch Failed", error)
-        setIsLoading(false)
+        throw new Error("EnjoyFreshItems Fetch Failed", error)
       }
-    }
-
-    getData()
+    })()
   }, [selectedCategory])
 
   return (

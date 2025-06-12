@@ -22,8 +22,6 @@ import {
   ListItemText,
   Tooltip,
   useMediaQuery,
-  Badge,
-  Zoom,
 } from "@mui/material"
 import MenuIcon from "@mui/icons-material/Menu"
 import { Link, useLocation, useNavigate } from "react-router-dom"
@@ -202,9 +200,8 @@ const Navbar = (props) => {
   }, [])
 
   const navigate = useNavigate()
-  const { userLoggedInState, cartItemsState } = React.useContext(groceryContext)
+  const { userLoggedInState } = React.useContext(groceryContext)
   const [isUserLoggedIn, setIsUserLoggedIn] = userLoggedInState
-  const [cartItems] = cartItemsState
 
   const [openAlert, setOpenAlert] = React.useState(false)
 
@@ -214,9 +211,6 @@ const Navbar = (props) => {
     setOpenAlert(!openAlert)
     sessionStorage.setItem("userLoggedIn", JSON.stringify(false))
   }
-
-  // Calculate total items in cart
-  const totalCartItems = cartItems.reduce((total, item) => total + item.quantity, 0)
 
   return (
     <>
@@ -266,7 +260,7 @@ const Navbar = (props) => {
                       <Links setIsOpenDrawer={setIsOpenDrawer} isOpenDrawer={isOpenDrawer} />
                     )}
                     <div className="sm:space-x-8 space-x-5 flex items-center">
-                      {/* Go to cart btn with animated badge */}
+                      {/* Go to cart btn */}
                       <Tooltip title={t("nav.cart")}>
                         <span>
                           <IconButton
@@ -274,30 +268,7 @@ const Navbar = (props) => {
                             sx={{ textTransform: "capitalize" }}
                             color="warning"
                           >
-                            <Badge
-                              badgeContent={totalCartItems}
-                              color="error"
-                              sx={{
-                                "& .MuiBadge-badge": {
-                                  animation: totalCartItems > 0 ? "pulse 0.6s ease-in-out" : "none",
-                                  "@keyframes pulse": {
-                                    "0%": {
-                                      transform: "scale(1)",
-                                    },
-                                    "50%": {
-                                      transform: "scale(1.2)",
-                                    },
-                                    "100%": {
-                                      transform: "scale(1)",
-                                    },
-                                  },
-                                },
-                              }}
-                            >
-                              <Zoom in={true} style={{ transitionDelay: "100ms" }}>
-                                <ShoppingCartRounded fontSize="inherit" />
-                              </Zoom>
-                            </Badge>
+                            <ShoppingCartRounded fontSize="inherit" />
                           </IconButton>
                         </span>
                       </Tooltip>
