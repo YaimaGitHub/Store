@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import ProductCard, { ProductCardSkeleton } from "./ProductCard/ProductCard"
 import { useParams } from "react-router-dom"
 import { useLanguage } from "../../contexts/LanguageContext"
+import { productsData } from "../../store/products"
 
 const Products = ({ categoryProducts }) => {
   const [products, setProducts] = useState([])
@@ -17,33 +18,43 @@ const Products = ({ categoryProducts }) => {
 
   // Get Products
   useEffect(() => {
-    const getData = (async () => {
-      const allProductsUrl = "https://api.npoint.io/bc3d1b1bc1a0fde36701"
-      const categoryProductsUrl = `https://api.npoint.io/bc3d1b1bc1a0fde36701/${
-        categoryName === "meat"
-          ? 0
-          : categoryName === "vegetables"
-            ? 1
-            : categoryName === "fruits"
-              ? 2
-              : categoryName === "dairy"
-                ? 3
-                : categoryName === "grains"
-                  ? 4
-                  : 2
-      }`
+    const getData = () => {
       try {
-        const res = await fetch(categoryName ? categoryProductsUrl : allProductsUrl)
-        const data = await res.json()
-        setProducts(
-          categoryName ? data.items : data[0].items.concat(data[1].items, data[2].items, data[3].items, data[4].items),
-        )
-        setIsLoading(!isLoading)
+        let allProducts = []
+
+        if (categoryName) {
+          // Get products for specific category
+          const categoryIndex =
+            categoryName === "meat"
+              ? 0
+              : categoryName === "vegetables"
+                ? 1
+                : categoryName === "fruits"
+                  ? 2
+                  : categoryName === "dairy"
+                    ? 3
+                    : categoryName === "grains"
+                      ? 4
+                      : 2
+
+          allProducts = productsData[categoryIndex]?.items || []
+        } else {
+          // Get all products from all categories
+          Object.values(productsData).forEach((category) => {
+            allProducts = allProducts.concat(category.items)
+          })
+        }
+
+        setProducts(allProducts)
+        setIsLoading(false)
       } catch (error) {
-        throw new Error("Products Fetch Failed", error)
+        console.error("Products Fetch Failed", error)
+        setIsLoading(false)
       }
-    })()
-  }, [])
+    }
+
+    getData()
+  }, [categoryName])
 
   const getCategoryDisplayName = (categoryName) => {
     const categoryMap = {

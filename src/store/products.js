@@ -1,7 +1,402 @@
-export const products = [
-  {
-    "category": "Meat",
-    "items": [
+export const productsData = {
+  0: {
+    // Meat Category
+    items: [
       {
-        "name": "Beef Meat",
-        "img": \"data:image/jpeg;base64,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Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9Y9
+        id: "meat_001",
+        name: "Bistec de Res Premium",
+        price: 12.99,
+        originalPrice: 15.99,
+        quantity: 1,
+        unit: "kg",
+        category: "Meat",
+        stock: 25,
+        reviews: 4.8,
+        reviewCount: 156,
+        images: [
+          "https://images.unsplash.com/photo-1588347818481-c7c1b6b3b5b3?w=400",
+          "https://images.unsplash.com/photo-1603048297172-c92544798d5a?w=400",
+          "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400",
+        ],
+        description:
+          "Bistec de res de primera calidad, criado en pastizales naturales. Corte tierno y jugoso, perfecto para asados y parrillas. Alimentado con pasto orgánico sin hormonas ni antibióticos.",
+        specifications: {
+          origin: "Granjas Locales Certificadas",
+          cut: "Corte Premium",
+          freshness: "Procesado en las últimas 24 horas",
+          storage: "Refrigerado 0-4°C",
+        },
+      },
+      {
+        id: "meat_002",
+        name: "Pollo Orgánico Entero",
+        price: 8.5,
+        originalPrice: 10.0,
+        quantity: 1,
+        unit: "kg",
+        category: "Meat",
+        stock: 18,
+        reviews: 4.6,
+        reviewCount: 89,
+        images: [
+          "https://images.unsplash.com/photo-1604503468506-a8da13d82791?w=400",
+          "https://images.unsplash.com/photo-1587593810167-a84920ea0781?w=400",
+          "https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=400",
+        ],
+        description:
+          "Pollo orgánico de corral, criado al aire libre con alimentación natural. Carne tierna y sabrosa, libre de químicos y hormonas. Ideal para toda la familia.",
+        specifications: {
+          origin: "Granjas Orgánicas Certificadas",
+          type: "Pollo de Corral",
+          freshness: "Sacrificado hace menos de 48 horas",
+          storage: "Refrigerado 0-4°C",
+        },
+      },
+      {
+        id: "meat_003",
+        name: "Cerdo Ibérico Premium",
+        price: 14.75,
+        originalPrice: 17.5,
+        quantity: 1,
+        unit: "kg",
+        category: "Meat",
+        stock: 12,
+        reviews: 4.9,
+        reviewCount: 203,
+        images: [
+          "https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=400",
+          "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=400",
+          "https://images.unsplash.com/photo-1544025162-d76694265947?w=400",
+        ],
+        description:
+          "Cerdo ibérico de bellota, con un sabor único y textura excepcional. Criado en dehesas tradicionales, alimentado con bellotas naturales. Carne marmoleada de calidad superior.",
+        specifications: {
+          origin: "Dehesas Ibéricas",
+          breed: "Cerdo Ibérico 100%",
+          freshness: "Curado artesanalmente",
+          storage: "Refrigerado 2-6°C",
+        },
+      },
+    ],
+  },
+  1: {
+    // Vegetables Category
+    items: [
+      {
+        id: "veg_001",
+        name: "Tomates Cherry Orgánicos",
+        price: 3.25,
+        originalPrice: 4.0,
+        quantity: 500,
+        unit: "g",
+        category: "Vegetables",
+        stock: 45,
+        reviews: 4.7,
+        reviewCount: 124,
+        images: [
+          "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=400",
+          "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=400",
+          "https://images.unsplash.com/photo-1546470427-e26264be0b0d?w=400",
+        ],
+        description:
+          "Tomates cherry orgánicos, dulces y jugosos. Cultivados sin pesticidas en invernaderos controlados. Perfectos para ensaladas, salsas y decoración de platos.",
+        specifications: {
+          origin: "Invernaderos Locales",
+          variety: "Cherry Orgánico",
+          harvest: "Cosechados esta mañana",
+          storage: "Temperatura ambiente",
+        },
+      },
+      {
+        id: "veg_002",
+        name: "Lechuga Hidropónica",
+        price: 2.5,
+        originalPrice: 3.2,
+        quantity: 1,
+        unit: "unidad",
+        category: "Vegetables",
+        stock: 0,
+        reviews: 4.5,
+        reviewCount: 67,
+        images: [
+          "https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=400",
+          "https://images.unsplash.com/photo-1556801712-76c8eb07bbc9?w=400",
+          "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400",
+        ],
+        description:
+          "Lechuga hidropónica fresca y crujiente. Cultivada en sistemas de cultivo sin suelo, garantizando máxima limpieza y frescura. Hojas tiernas y sabrosas.",
+        specifications: {
+          origin: "Cultivo Hidropónico Local",
+          variety: "Lechuga Romana",
+          harvest: "Cosechada hace 6 horas",
+          storage: "Refrigerado 4-8°C",
+        },
+      },
+      {
+        id: "veg_003",
+        name: "Zanahorias Baby Premium",
+        price: 2.8,
+        originalPrice: 3.5,
+        quantity: 500,
+        unit: "g",
+        category: "Vegetables",
+        stock: 32,
+        reviews: 4.8,
+        reviewCount: 98,
+        images: [
+          "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=400",
+          "https://images.unsplash.com/photo-1445282768818-728615cc910a?w=400",
+          "https://images.unsplash.com/photo-1582515073490-39981397c445?w=400",
+        ],
+        description:
+          "Zanahorias baby premium, dulces y tiernas. Cultivadas en suelos ricos en nutrientes. Perfectas para snacks saludables, ensaladas y cocción al vapor.",
+        specifications: {
+          origin: "Campos Orgánicos Certificados",
+          variety: "Zanahoria Baby",
+          harvest: "Cosechadas ayer",
+          storage: "Refrigerado 2-8°C",
+        },
+      },
+    ],
+  },
+  2: {
+    // Fruits Category
+    items: [
+      {
+        id: "fruit_001",
+        name: "Manzanas Gala Premium",
+        price: 4.2,
+        originalPrice: 5.0,
+        quantity: 1,
+        unit: "kg",
+        category: "Fruits",
+        stock: 28,
+        reviews: 4.6,
+        reviewCount: 145,
+        images: [
+          "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=400",
+          "https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=400",
+          "https://images.unsplash.com/photo-1619546813926-a78fa6372cd2?w=400",
+        ],
+        description:
+          "Manzanas Gala de primera calidad, crujientes y dulces. Cultivadas en huertos de montaña con métodos tradicionales. Ricas en fibra y antioxidantes naturales.",
+        specifications: {
+          origin: "Huertos de Montaña",
+          variety: "Gala Premium",
+          ripeness: "Punto óptimo de maduración",
+          storage: "Lugar fresco y seco",
+        },
+      },
+      {
+        id: "fruit_002",
+        name: "Plátanos Canarios",
+        price: 2.9,
+        originalPrice: 3.4,
+        quantity: 1,
+        unit: "kg",
+        category: "Fruits",
+        stock: 15,
+        reviews: 4.9,
+        reviewCount: 187,
+        images: [
+          "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=400",
+          "https://images.unsplash.com/photo-1528825871115-3581a5387919?w=400",
+          "https://images.unsplash.com/photo-1603833665858-e61d17a86224?w=400",
+        ],
+        description:
+          "Plátanos canarios maduros y aromáticos. Cultivados en las mejores plantaciones tropicales. Fuente natural de potasio y energía. Perfectos para desayunos y meriendas.",
+        specifications: {
+          origin: "Plantaciones Canarias",
+          variety: "Plátano Canario",
+          ripeness: "Maduración perfecta",
+          storage: "Temperatura ambiente",
+        },
+      },
+      {
+        id: "fruit_003",
+        name: "Fresas Orgánicas",
+        price: 5.5,
+        originalPrice: 6.8,
+        quantity: 250,
+        unit: "g",
+        category: "Fruits",
+        stock: 8,
+        reviews: 4.8,
+        reviewCount: 156,
+        images: [
+          "https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=400",
+          "https://images.unsplash.com/photo-1518635017498-87f514b751ba?w=400",
+          "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?w=400",
+        ],
+        description:
+          "Fresas orgánicas jugosas y aromáticas. Cultivadas sin químicos en campos abiertos. Sabor intenso y dulce natural. Ideales para postres, batidos y consumo directo.",
+        specifications: {
+          origin: "Campos Orgánicos Certificados",
+          variety: "Fresa Orgánica",
+          harvest: "Recién cosechadas",
+          storage: "Refrigerado 2-4°C",
+        },
+      },
+    ],
+  },
+  3: {
+    // Dairy Category
+    items: [
+      {
+        id: "dairy_001",
+        name: "Leche Entera Pasteurizada",
+        price: 1.85,
+        originalPrice: 2.2,
+        quantity: 1,
+        unit: "litro",
+        category: "Dairy",
+        stock: 42,
+        reviews: 4.7,
+        reviewCount: 234,
+        images: [
+          "https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400",
+          "https://images.unsplash.com/photo-1563636619-e9143da7973b?w=400",
+          "https://images.unsplash.com/photo-1559181567-c3190ca9959b?w=400",
+        ],
+        description:
+          "Leche entera pasteurizada de vacas alimentadas con pasto natural. Rica en calcio y proteínas. Procesada con los más altos estándares de calidad y frescura.",
+        specifications: {
+          origin: "Granjas Lecheras Certificadas",
+          type: "Leche Entera 3.5% grasa",
+          process: "Pasteurizada UHT",
+          storage: "Refrigerado 2-6°C",
+        },
+      },
+      {
+        id: "dairy_002",
+        name: "Queso Manchego Curado",
+        price: 8.9,
+        originalPrice: 10.5,
+        quantity: 200,
+        unit: "g",
+        category: "Dairy",
+        stock: 16,
+        reviews: 4.9,
+        reviewCount: 89,
+        images: [
+          "https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=400",
+          "https://images.unsplash.com/photo-1552767059-ce182ead6c1b?w=400",
+          "https://images.unsplash.com/photo-1634141510639-d691d86f47be?w=400",
+        ],
+        description:
+          "Queso manchego curado artesanalmente durante 6 meses. Elaborado con leche de oveja de la región de La Mancha. Sabor intenso y textura firme característica.",
+        specifications: {
+          origin: "La Mancha, España",
+          type: "Queso de Oveja Curado",
+          aging: "6 meses de curación",
+          storage: "Refrigerado 4-8°C",
+        },
+      },
+      {
+        id: "dairy_003",
+        name: "Yogur Griego Natural",
+        price: 3.4,
+        originalPrice: 4.1,
+        quantity: 500,
+        unit: "g",
+        category: "Dairy",
+        stock: 25,
+        reviews: 4.6,
+        reviewCount: 167,
+        images: [
+          "https://images.unsplash.com/photo-1571212515416-fef01fc43637?w=400",
+          "https://images.unsplash.com/photo-1628088062854-d1870b4553da?w=400",
+          "https://images.unsplash.com/photo-1506976785307-8732e854ad03?w=400",
+        ],
+        description:
+          "Yogur griego natural cremoso y rico en proteínas. Elaborado con cultivos vivos activos. Sin azúcares añadidos, perfecto para desayunos saludables y postres.",
+        specifications: {
+          origin: "Lácteos Artesanales",
+          type: "Yogur Griego 0% grasa",
+          cultures: "Cultivos vivos activos",
+          storage: "Refrigerado 2-6°C",
+        },
+      },
+    ],
+  },
+  4: {
+    // Grains Category
+    items: [
+      {
+        id: "grain_001",
+        name: "Arroz Basmati Premium",
+        price: 4.5,
+        originalPrice: 5.2,
+        quantity: 1,
+        unit: "kg",
+        category: "Grains",
+        stock: 35,
+        reviews: 4.8,
+        reviewCount: 198,
+        images: [
+          "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400",
+          "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=400",
+          "https://images.unsplash.com/photo-1615485925600-97237c4fc1ec?w=400",
+        ],
+        description:
+          "Arroz Basmati premium de grano largo y aromático. Cultivado en las mejores regiones del Himalaya. Textura suelta y fragancia única. Ideal para platos gourmet.",
+        specifications: {
+          origin: "Regiones del Himalaya",
+          variety: "Basmati Premium",
+          grain: "Grano largo aromático",
+          storage: "Lugar seco y fresco",
+        },
+      },
+      {
+        id: "grain_002",
+        name: "Quinoa Orgánica Tricolor",
+        price: 6.8,
+        originalPrice: 8.0,
+        quantity: 500,
+        unit: "g",
+        category: "Grains",
+        stock: 22,
+        reviews: 4.7,
+        reviewCount: 134,
+        images: [
+          "https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=400",
+          "https://images.unsplash.com/photo-1605792657660-596af9009e82?w=400",
+          "https://images.unsplash.com/photo-1609501676725-7186f0a1b4d3?w=400",
+        ],
+        description:
+          "Quinoa orgánica tricolor (blanca, roja y negra). Superalimento rico en proteínas completas y aminoácidos esenciales. Cultivada en los Andes sin químicos.",
+        specifications: {
+          origin: "Altiplano Andino",
+          variety: "Quinoa Tricolor Orgánica",
+          protein: "14g por 100g",
+          storage: "Lugar seco y hermético",
+        },
+      },
+      {
+        id: "grain_003",
+        name: "Avena Integral Ecológica",
+        price: 3.2,
+        originalPrice: 3.9,
+        quantity: 1,
+        unit: "kg",
+        category: "Grains",
+        stock: 0,
+        reviews: 4.5,
+        reviewCount: 176,
+        images: [
+          "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400",
+          "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400",
+          "https://images.unsplash.com/photo-1559181567-c3190ca9959b?w=400",
+        ],
+        description:
+          "Avena integral ecológica rica en fibra beta-glucano. Cultivada sin pesticidas en campos certificados. Perfecta para desayunos nutritivos y recetas saludables.",
+        specifications: {
+          origin: "Campos Ecológicos Certificados",
+          variety: "Avena Integral",
+          fiber: "Alto contenido en fibra",
+          storage: "Lugar seco y ventilado",
+        },
+      },
+    ],
+  },
+}
