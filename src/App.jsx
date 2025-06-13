@@ -1,7 +1,6 @@
 "use client"
 
-import { Route, Routes } from "react-router-dom"
-import { BrowserRouter as Router } from "react-router-dom"
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom"
 import Layout from "./Components/Layout/Layout"
 import Home from "./Components/Home/Home"
 import Products from "./Components/Products/Products"
@@ -46,8 +45,7 @@ function App() {
             <Route element={<ProtectedRoute />}>
               <Route path="/cart" element={<Cart />} />
             </Route>
-            {/* Catch all route - must be last */}
-            <Route path="*" element={<PageNotFound />} />
+            <Route path="/*" element={<PageNotFound />} />
           </Route>
         </Routes>
       </Router>
