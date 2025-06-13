@@ -16,6 +16,7 @@ import { useEffect } from "react"
 function App() {
   // This effect prevents pinch-to-zoom on mobile devices
   useEffect(() => {
+    // Prevenir zoom en dispositivos móviles
     const handleTouchMove = (e) => {
       if (e.touches.length > 1) {
         e.preventDefault()
@@ -23,6 +24,25 @@ function App() {
     }
 
     document.addEventListener("touchmove", handleTouchMove, { passive: false })
+
+    // Detectar si es un refresco de página
+    const pageAccessedByReload =
+      (window.performance.navigation && window.performance.navigation.type === 1) ||
+      window.performance
+        .getEntriesByType("navigation")
+        .map((nav) => nav.type)
+        .includes("reload")
+
+    // Si es un refresco, vaciar el carrito y redirigir al home
+    if (pageAccessedByReload) {
+      // Vaciar el carrito en sessionStorage
+      sessionStorage.removeItem("grocery_cartItems")
+
+      // Redirigir al home si no estamos ya en la página de inicio
+      if (window.location.pathname !== "/" && window.location.pathname !== "/home") {
+        window.location.href = "/"
+      }
+    }
 
     return () => {
       document.removeEventListener("touchmove", handleTouchMove)
