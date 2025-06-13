@@ -1,6 +1,7 @@
 "use client"
 
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom"
+import { Route, Routes } from "react-router-dom"
+import { BrowserRouter as Router } from "react-router-dom"
 import Layout from "./Components/Layout/Layout"
 import Home from "./Components/Home/Home"
 import Products from "./Components/Products/Products"
