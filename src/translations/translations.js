@@ -142,6 +142,16 @@ export const translations = {
       ltr: "ltr",
       pageNotFound: "Página No Encontrada",
     },
+    product: {
+      description: "Descripción",
+      brand: "Marca",
+      model: "Modelo",
+      color: "Color",
+      viewDetails: "Ver Detalles",
+      zoomIn: "Ampliar",
+      nextImage: "Siguiente Imagen",
+      prevImage: "Imagen Anterior",
+    },
   },
   en: {
     nav: {
@@ -285,6 +295,16 @@ export const translations = {
       kg: "kg",
       ltr: "ltr",
       pageNotFound: "Page Not Found",
+    },
+    product: {
+      description: "Description",
+      brand: "Brand",
+      model: "Model",
+      color: "Color",
+      viewDetails: "View Details",
+      zoomIn: "Zoom In",
+      nextImage: "Next Image",
+      prevImage: "Previous Image",
     },
   },
 }

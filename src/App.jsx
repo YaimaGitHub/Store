@@ -1,3 +1,5 @@
+"use client"
+
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom"
 import Layout from "./Components/Layout/Layout"
 import Home from "./Components/Home/Home"
@@ -9,8 +11,24 @@ import Login from "./Components/Authantication/Login/Login"
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute"
 import Cart from "./Components/Cart/Cart"
 import { LanguageProvider } from "./contexts/LanguageContext"
+import { useEffect } from "react"
 
 function App() {
+  // This effect prevents pinch-to-zoom on mobile devices
+  useEffect(() => {
+    const handleTouchMove = (e) => {
+      if (e.touches.length > 1) {
+        e.preventDefault()
+      }
+    }
+
+    document.addEventListener("touchmove", handleTouchMove, { passive: false })
+
+    return () => {
+      document.removeEventListener("touchmove", handleTouchMove)
+    }
+  }, [])
+
   return (
     <LanguageProvider>
       <Router>

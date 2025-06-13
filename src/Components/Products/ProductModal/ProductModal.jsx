@@ -1,21 +1,42 @@
 "use client"
 
 import { Dialog, DialogContent, Button, Rating, IconButton, Backdrop, Zoom, useMediaQuery } from "@mui/material"
-import { Close, ShoppingCart, Star } from "@mui/icons-material"
-import { useContext, useState } from "react"
+import { Close, ShoppingCart, Star, ArrowForward, ArrowBack } from "@mui/icons-material"
+import { useContext, useState, useEffect } from "react"
 import { groceryContext } from "../../Layout/Layout"
 import { handleSessionStorage } from "../../../utils/utils"
 import SuccessAlert from "../../SuccessAlert/SuccessAlert"
 import { useLanguage } from "../../../contexts/LanguageContext"
 
+// Replace the image imports with a function that generates placeholder images
 const ProductModal = ({ open, onClose, product }) => {
   const { img, name, price, reviews, reviewCount, quantity, unit, id } = product
-  const { t } = useLanguage()
+  const { t, currentLanguage } = useLanguage()
   const [openAlert, setOpenAlert] = useState(false)
   const { cartItemsState } = useContext(groceryContext)
   const [cartItems, setCartItems] = cartItemsState
-
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const isMobile = useMediaQuery("(max-width:768px)")
+
+  // Reset image index when modal opens
+  useEffect(() => {
+    if (open) {
+      setCurrentImageIndex(0)
+    }
+  }, [open])
+
+  // Generate placeholder images based on product name
+  const getProductImages = (productName) => {
+    // Create an array with the main product image and 3 placeholder images
+    return [
+      img,
+      `https://source.unsplash.com/300x300/?${encodeURIComponent(productName.toLowerCase())}`,
+      `https://source.unsplash.com/300x300/?${encodeURIComponent(productName.toLowerCase() + " food")}`,
+      `https://source.unsplash.com/300x300/?${encodeURIComponent(productName.toLowerCase() + " fresh")}`,
+    ]
+  }
+
+  const productImages = getProductImages(name)
 
   // Get product details based on product name
   const getProductDetails = (productName) => {
@@ -24,159 +45,202 @@ const ProductModal = ({ open, onClose, product }) => {
       "Beef Meat": {
         brand: "Premium Beef",
         model: "Corte Especial",
-        color: "Rojo Natural",
+        color: currentLanguage === "es" ? "Rojo Natural" : "Natural Red",
         description:
-          "Carne de res premium, perfecta para asados y parrillas. Rica en proteínas y hierro, ideal para una alimentación balanceada.",
+          currentLanguage === "es"
+            ? "Carne de res premium, perfecta para asados y parrillas. Rica en proteínas y hierro, ideal para una alimentación balanceada."
+            : "Premium beef, perfect for roasting and grilling. Rich in protein and iron, ideal for a balanced diet.",
       },
       "Chicken Meat": {
         brand: "Farm Fresh",
         model: "Pollo Entero",
-        color: "Blanco Natural",
+        color: currentLanguage === "es" ? "Blanco Natural" : "Natural White",
         description:
-          "Pollo fresco y tierno, ideal para cualquier preparación culinaria. Bajo en grasa y alto en proteínas de calidad.",
+          currentLanguage === "es"
+            ? "Pollo fresco y tierno, ideal para cualquier preparación culinaria. Bajo en grasa y alto en proteínas de calidad."
+            : "Fresh and tender chicken, ideal for any culinary preparation. Low in fat and high in quality protein.",
       },
       "Pork Meat": {
         brand: "Quality Pork",
         model: "Lomo Premium",
-        color: "Rosa Natural",
+        color: currentLanguage === "es" ? "Rosa Natural" : "Natural Pink",
         description:
-          "Carne de cerdo jugosa y sabrosa, perfecta para guisos y asados. Fuente excelente de vitaminas del complejo B.",
+          currentLanguage === "es"
+            ? "Carne de cerdo jugosa y sabrosa, perfecta para guisos y asados. Fuente excelente de vitaminas del complejo B."
+            : "Juicy and tasty pork meat, perfect for stews and roasts. Excellent source of B-complex vitamins.",
       },
       "Lamb Meat": {
         brand: "Gourmet Lamb",
         model: "Cordero Tierno",
-        color: "Rojo Intenso",
+        color: currentLanguage === "es" ? "Rojo Intenso" : "Deep Red",
         description:
-          "Cordero tierno de la más alta calidad, ideal para ocasiones especiales. Sabor único y textura excepcional.",
+          currentLanguage === "es"
+            ? "Cordero tierno de la más alta calidad, ideal para ocasiones especiales. Sabor único y textura excepcional."
+            : "Tender lamb of the highest quality, ideal for special occasions. Unique flavor and exceptional texture.",
       },
 
       // Vegetables
       Tomato: {
         brand: "Fresh Garden",
         model: "Tomate Cherry",
-        color: "Rojo Brillante",
+        color: currentLanguage === "es" ? "Rojo Brillante" : "Bright Red",
         description:
-          "Tomates frescos y jugosos, ricos en vitaminas C y licopeno. Perfectos para ensaladas, salsas y preparaciones culinarias.",
+          currentLanguage === "es"
+            ? "Tomates frescos y jugosos, ricos en vitaminas C y licopeno. Perfectos para ensaladas, salsas y preparaciones culinarias."
+            : "Fresh and juicy tomatoes, rich in vitamin C and lycopene. Perfect for salads, sauces, and culinary preparations.",
       },
       Carrot: {
         brand: "Organic Farm",
         model: "Zanahoria Baby",
-        color: "Naranja Vibrante",
+        color: currentLanguage === "es" ? "Naranja Vibrante" : "Vibrant Orange",
         description:
-          "Zanahorias crujientes y dulces, ricas en vitamina A y betacarotenos. Excelentes para la salud visual y el sistema inmune.",
+          currentLanguage === "es"
+            ? "Zanahorias crujientes y dulces, ricas en vitamina A y betacarotenos. Excelentes para la salud visual y el sistema inmune."
+            : "Crunchy and sweet carrots, rich in vitamin A and beta-carotene. Excellent for eye health and immune system.",
       },
       Spinach: {
         brand: "Green Leaf",
         model: "Espinaca Tierna",
-        color: "Verde Intenso",
+        color: currentLanguage === "es" ? "Verde Intenso" : "Deep Green",
         description:
-          "Espinacas frescas y nutritivas, ricas en hierro, ácido fólico y vitaminas. Perfectas para ensaladas y platos cocidos.",
+          currentLanguage === "es"
+            ? "Espinacas frescas y nutritivas, ricas en hierro, ácido fólico y vitaminas. Perfectas para ensaladas y platos cocidos."
+            : "Fresh and nutritious spinach, rich in iron, folic acid, and vitamins. Perfect for salads and cooked dishes.",
       },
       Broccoli: {
         brand: "Healthy Green",
         model: "Brócoli Premium",
-        color: "Verde Oscuro",
+        color: currentLanguage === "es" ? "Verde Oscuro" : "Dark Green",
         description:
-          "Brócoli fresco y crujiente, rico en vitaminas C, K y antioxidantes. Ideal para mantener una dieta saludable.",
+          currentLanguage === "es"
+            ? "Brócoli fresco y crujiente, rico en vitaminas C, K y antioxidantes. Ideal para mantener una dieta saludable."
+            : "Fresh and crunchy broccoli, rich in vitamins C, K, and antioxidants. Ideal for maintaining a healthy diet.",
       },
 
       // Fruits
       Apple: {
         brand: "Orchard Fresh",
         model: "Manzana Gala",
-        color: "Rojo con Verde",
+        color: currentLanguage === "es" ? "Rojo con Verde" : "Red with Green",
         description:
-          "Manzanas crujientes y dulces, ricas en fibra y vitaminas. Perfectas como snack saludable o para postres naturales.",
+          currentLanguage === "es"
+            ? "Manzanas crujientes y dulces, ricas en fibra y vitaminas. Perfectas como snack saludable o para postres naturales."
+            : "Crisp and sweet apples, rich in fiber and vitamins. Perfect as a healthy snack or for natural desserts.",
       },
       Banana: {
         brand: "Tropical Best",
         model: "Plátano Cavendish",
-        color: "Amarillo Dorado",
+        color: currentLanguage === "es" ? "Amarillo Dorado" : "Golden Yellow",
         description:
-          "Plátanos maduros y dulces, ricos en potasio y energía natural. Ideales para deportistas y desayunos nutritivos.",
+          currentLanguage === "es"
+            ? "Plátanos maduros y dulces, ricos en potasio y energía natural. Ideales para deportistas y desayunos nutritivos."
+            : "Ripe and sweet bananas, rich in potassium and natural energy. Ideal for athletes and nutritious breakfasts.",
       },
       Orange: {
         brand: "Citrus Gold",
         model: "Naranja Valencia",
-        color: "Naranja Brillante",
+        color: currentLanguage === "es" ? "Naranja Brillante" : "Bright Orange",
         description:
-          "Naranjas jugosas y refrescantes, ricas en vitamina C y antioxidantes. Perfectas para jugos naturales y meriendas.",
+          currentLanguage === "es"
+            ? "Naranjas jugosas y refrescantes, ricas en vitamina C y antioxidantes. Perfectas para jugos naturales y meriendas."
+            : "Juicy and refreshing oranges, rich in vitamin C and antioxidants. Perfect for natural juices and snacks.",
       },
       Grapes: {
         brand: "Vineyard Select",
         model: "Uva Sin Semilla",
-        color: "Verde Esmeralda",
+        color: currentLanguage === "es" ? "Verde Esmeralda" : "Emerald Green",
         description:
-          "Uvas dulces y jugosas, ricas en antioxidantes y resveratrol. Perfectas como snack saludable o para acompañar quesos.",
+          currentLanguage === "es"
+            ? "Uvas dulces y jugosas, ricas en antioxidantes y resveratrol. Perfectas como snack saludable o para acompañar quesos."
+            : "Sweet and juicy grapes, rich in antioxidants and resveratrol. Perfect as a healthy snack or to accompany cheeses.",
       },
 
       // Dairy
       Milk: {
         brand: "Dairy Pure",
         model: "Leche Entera",
-        color: "Blanco Cremoso",
+        color: currentLanguage === "es" ? "Blanco Cremoso" : "Creamy White",
         description:
-          "Leche fresca y cremosa, rica en calcio y proteínas de alta calidad. Esencial para el desarrollo y mantenimiento óseo.",
+          currentLanguage === "es"
+            ? "Leche fresca y cremosa, rica en calcio y proteínas de alta calidad. Esencial para el desarrollo y mantenimiento óseo."
+            : "Fresh and creamy milk, rich in calcium and high-quality proteins. Essential for bone development and maintenance.",
       },
       Cheese: {
         brand: "Artisan Cheese",
         model: "Queso Cheddar",
-        color: "Amarillo Dorado",
+        color: currentLanguage === "es" ? "Amarillo Dorado" : "Golden Yellow",
         description:
-          "Queso artesanal de la más alta calidad, perfecto para cualquier ocasión. Rico en calcio y proteínas.",
+          currentLanguage === "es"
+            ? "Queso artesanal de la más alta calidad, perfecto para cualquier ocasión. Rico en calcio y proteínas."
+            : "Artisanal cheese of the highest quality, perfect for any occasion. Rich in calcium and protein.",
       },
       Yogurt: {
         brand: "Probiotic Plus",
         model: "Yogurt Natural",
-        color: "Blanco Puro",
+        color: currentLanguage === "es" ? "Blanco Puro" : "Pure White",
         description:
-          "Yogurt cremoso y natural, rico en probióticos y calcio. Ideal para la salud digestiva y el bienestar general.",
+          currentLanguage === "es"
+            ? "Yogurt cremoso y natural, rico en probióticos y calcio. Ideal para la salud digestiva y el bienestar general."
+            : "Creamy and natural yogurt, rich in probiotics and calcium. Ideal for digestive health and general well-being.",
       },
       Butter: {
         brand: "Creamy Best",
         model: "Mantequilla Sin Sal",
-        color: "Amarillo Pálido",
+        color: currentLanguage === "es" ? "Amarillo Pálido" : "Pale Yellow",
         description:
-          "Mantequilla cremosa y natural, perfecta para cocinar y hornear. Elaborada con los mejores ingredientes.",
+          currentLanguage === "es"
+            ? "Mantequilla cremosa y natural, perfecta para cocinar y hornear. Elaborada con los mejores ingredientes."
+            : "Creamy and natural butter, perfect for cooking and baking. Made with the finest ingredients.",
       },
 
       // Grains
       Rice: {
         brand: "Golden Grain",
         model: "Arroz Basmati",
-        color: "Blanco Perlado",
+        color: currentLanguage === "es" ? "Blanco Perlado" : "Pearly White",
         description:
-          "Arroz de grano largo y alta calidad, perfecto como acompañamiento. Fuente de energía y carbohidratos complejos.",
+          currentLanguage === "es"
+            ? "Arroz de grano largo y alta calidad, perfecto como acompañamiento. Fuente de energía y carbohidratos complejos."
+            : "Long-grain, high-quality rice, perfect as a side dish. Source of energy and complex carbohydrates.",
       },
       Wheat: {
         brand: "Whole Grain",
         model: "Trigo Integral",
-        color: "Dorado Natural",
+        color: currentLanguage === "es" ? "Dorado Natural" : "Natural Golden",
         description:
-          "Trigo integral de primera calidad, rico en fibra y nutrientes. Ideal para una alimentación saludable y balanceada.",
+          currentLanguage === "es"
+            ? "Trigo integral de primera calidad, rico en fibra y nutrientes. Ideal para una alimentación saludable y balanceada."
+            : "Premium whole wheat, rich in fiber and nutrients. Ideal for a healthy and balanced diet.",
       },
       Oats: {
         brand: "Morning Fresh",
         model: "Avena Integral",
-        color: "Beige Natural",
+        color: currentLanguage === "es" ? "Beige Natural" : "Natural Beige",
         description:
-          "Avena natural y nutritiva, perfecta para desayunos saludables. Rica en fibra soluble y proteínas vegetales.",
+          currentLanguage === "es"
+            ? "Avena natural y nutritiva, perfecta para desayunos saludables. Rica en fibra soluble y proteínas vegetales."
+            : "Natural and nutritious oats, perfect for healthy breakfasts. Rich in soluble fiber and vegetable proteins.",
       },
       Barley: {
         brand: "Ancient Grain",
         model: "Cebada Perlada",
-        color: "Marrón Claro",
+        color: currentLanguage === "es" ? "Marrón Claro" : "Light Brown",
         description:
-          "Cebada de alta calidad, rica en fibra y minerales. Perfecta para sopas, guisos y preparaciones nutritivas.",
+          currentLanguage === "es"
+            ? "Cebada de alta calidad, rica en fibra y minerales. Perfecta para sopas, guisos y preparaciones nutritivas."
+            : "High-quality barley, rich in fiber and minerals. Perfect for soups, stews, and nutritious preparations.",
       },
     }
 
     return (
       productDetails[productName] || {
-        brand: "Marca Premium",
-        model: "Modelo Estándar",
-        color: "Color Natural",
-        description: "Producto fresco de la más alta calidad, seleccionado especialmente para ti.",
+        brand: currentLanguage === "es" ? "Marca Premium" : "Premium Brand",
+        model: currentLanguage === "es" ? "Modelo Estándar" : "Standard Model",
+        color: currentLanguage === "es" ? "Color Natural" : "Natural Color",
+        description:
+          currentLanguage === "es"
+            ? "Producto fresco de la más alta calidad, seleccionado especialmente para ti."
+            : "Fresh product of the highest quality, specially selected for you.",
       }
     )
   }
@@ -199,6 +263,16 @@ const ProductModal = ({ open, onClose, product }) => {
 
     setOpenAlert(true)
     onClose()
+  }
+
+  const handleNextImage = (e) => {
+    e.stopPropagation()
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % productImages.length)
+  }
+
+  const handlePrevImage = (e) => {
+    e.stopPropagation()
+    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + productImages.length) % productImages.length)
   }
 
   const productDetails = getProductDetails(name)
@@ -250,15 +324,59 @@ const ProductModal = ({ open, onClose, product }) => {
           </IconButton>
 
           <div className={`grid ${isMobile ? "grid-cols-1" : "md:grid-cols-2"} gap-0`}>
-            {/* Product Image */}
-            <div className="bg-gray-50 flex items-center justify-center p-8">
-              <div className="transform transition-transform duration-300 hover:scale-105">
+            {/* Product Image with Slider */}
+            <div className="bg-gray-50 flex items-center justify-center p-8 relative">
+              <div className="relative transition-all duration-300">
                 <img
-                  src={img || "/placeholder.svg"}
+                  src={productImages[currentImageIndex] || img}
                   alt={name}
-                  className={`${isMobile ? "max-h-64" : "max-h-80"} w-auto object-contain`}
+                  className={`${isMobile ? "max-h-64" : "max-h-80"} w-auto object-contain transition-transform duration-300 hover:scale-105`}
                 />
               </div>
+
+              {/* Image Navigation Controls */}
+              {productImages.length > 1 && (
+                <div className="absolute bottom-4 left-0 right-0 flex justify-center space-x-4">
+                  <IconButton
+                    onClick={handlePrevImage}
+                    aria-label={t("product.prevImage")}
+                    sx={{
+                      backgroundColor: "rgba(255, 255, 255, 0.8)",
+                      "&:hover": { backgroundColor: "rgba(255, 255, 255, 1)" },
+                    }}
+                  >
+                    <ArrowBack />
+                  </IconButton>
+
+                  <IconButton
+                    onClick={handleNextImage}
+                    aria-label={t("product.nextImage")}
+                    sx={{
+                      backgroundColor: "rgba(255, 255, 255, 0.8)",
+                      "&:hover": { backgroundColor: "rgba(255, 255, 255, 1)" },
+                    }}
+                  >
+                    <ArrowForward />
+                  </IconButton>
+                </div>
+              )}
+
+              {/* Image Indicators */}
+              {productImages.length > 1 && (
+                <div className="absolute bottom-16 left-0 right-0 flex justify-center space-x-2">
+                  {productImages.map((_, index) => (
+                    <button
+                      key={index}
+                      className={`w-2 h-2 rounded-full ${currentImageIndex === index ? "bg-green-600" : "bg-gray-300"}`}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setCurrentImageIndex(index)
+                      }}
+                      aria-label={`Image ${index + 1}`}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Product Details */}
@@ -287,15 +405,15 @@ const ProductModal = ({ open, onClose, product }) => {
                 <div className="space-y-3 bg-gray-50 p-4 rounded-lg">
                   <div className="grid grid-cols-2 gap-3 text-sm">
                     <div>
-                      <span className="font-semibold text-gray-700">Marca:</span>
+                      <span className="font-semibold text-gray-700">{t("product.brand")}:</span>
                       <p className="text-gray-600">{productDetails.brand}</p>
                     </div>
                     <div>
-                      <span className="font-semibold text-gray-700">Modelo:</span>
+                      <span className="font-semibold text-gray-700">{t("product.model")}:</span>
                       <p className="text-gray-600">{productDetails.model}</p>
                     </div>
                     <div className="col-span-2">
-                      <span className="font-semibold text-gray-700">Color:</span>
+                      <span className="font-semibold text-gray-700">{t("product.color")}:</span>
                       <p className="text-gray-600">{productDetails.color}</p>
                     </div>
                   </div>
@@ -303,7 +421,7 @@ const ProductModal = ({ open, onClose, product }) => {
 
                 {/* Description */}
                 <div className="space-y-2">
-                  <h3 className="text-lg font-semibold text-gray-700">Descripción</h3>
+                  <h3 className="text-lg font-semibold text-gray-700">{t("product.description")}</h3>
                   <p className="text-gray-600 leading-relaxed">{productDetails.description}</p>
                 </div>
 

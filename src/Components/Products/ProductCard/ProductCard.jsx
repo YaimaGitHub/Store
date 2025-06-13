@@ -10,6 +10,7 @@ const ProductCard = ({ product }) => {
   const { img, name, price, reviews, reviewCount, quantity, unit } = product
   const { t } = useLanguage()
   const [openModal, setOpenModal] = useState(false)
+  const [isHovered, setIsHovered] = useState(false)
 
   // Media Query
   const isSmallScreen = useMediaQuery("(max-width:768px)")
@@ -25,23 +26,26 @@ const ProductCard = ({ product }) => {
       <Fade in={true}>
         <Card
           onClick={handleProductClick}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
           sx={{
             maxWidth: isSmallScreen ? 275 : 295,
             mx: "auto",
-            boxShadow: "0 2px 4px -1px rgb(0 0 0 / 0.1)",
+            boxShadow: isHovered
+              ? "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
+              : "0 1px 3px rgba(0, 0, 0, 0.1)",
             backgroundColor: "white",
             cursor: "pointer",
             transition: "all 0.3s ease",
-            "&:hover": {
-              transform: "translateY(-8px) scale(1.02)",
-              boxShadow: "0 12px 30px -5px rgb(0 0 0 / 0.15), 0 15px 15px -5px rgb(0 0 0 / 0.08)",
-            },
+            transform: isHovered ? "translateY(-6px)" : "translateY(0)",
+            borderRadius: "8px",
+            overflow: "hidden",
           }}
         >
           {/* Product_img */}
           <div className="md:h-36 py-3 w-full bg-white flex items-center justify-center overflow-hidden">
             <img
-              className="md:max-h-28 max-h-24 transition-transform duration-300 hover:scale-110"
+              className={`md:max-h-28 max-h-24 transition-all duration-300 ${isHovered ? "scale-110" : "scale-100"}`}
               loading="lazy"
               src={img || "/placeholder.svg"}
               alt={name}
@@ -83,6 +87,17 @@ const ProductCard = ({ product }) => {
                     </span>
                   </div>
                 </div>
+              </div>
+
+              {/* View Details Button - Only visible on hover */}
+              <div
+                className={`absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 ${
+                  isHovered ? "opacity-100" : "opacity-0"
+                }`}
+              >
+                <span className="px-4 py-2 bg-green-600 text-white rounded-full text-sm font-medium transform transition-transform duration-300 hover:scale-105">
+                  {t("product.viewDetails")}
+                </span>
               </div>
             </CardContent>
           </div>
