@@ -45,7 +45,8 @@ function App() {
             <Route element={<ProtectedRoute />}>
               <Route path="/cart" element={<Cart />} />
             </Route>
-            <Route path="/*" element={<PageNotFound />} />
+            {/* Catch all route - must be last */}
+            <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>
       </Router>
